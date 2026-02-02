@@ -5,6 +5,9 @@
  */
 package co.eci.snake.PrimeFinder;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 /**
  *
  */
@@ -29,7 +32,6 @@ public class Control extends Thread {
         }
         pft[i] = new PrimeFinderThread(i*NDATA, MAXVALUE + 1);
     }
-    
     public static Control newControl() {
         return new Control();
     }
@@ -38,6 +40,28 @@ public class Control extends Thread {
     public void run() {
         for(int i = 0;i < NTHREADS;i++ ) {
             pft[i].start();
+            new Thread(() ->{
+                try{
+                    while (true) {
+                        Thread.sleep(TMILISECONDS);
+                        for (PrimeFinderThread t: pft){
+                            t.pauseThread();
+                        }
+                        int totalPrimes = 0;
+                        for (PrimeFinderThread t : pft){
+                            totalPrimes += t.getPrimes().size();
+                        }
+                        System.out.println("Total primes found so far: " + totalPrimes);
+                        System.out.println("Press Enter to continue...");
+                        new BufferedReader(new InputStreamReader(System.in)).readLine();
+                        for(PrimeFinderThread t: pft){
+                            t.resumeThread();
+                        }
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+            }
+        }).start();
         }
     }
     

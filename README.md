@@ -1,6 +1,7 @@
 # Snake Race — ARSW Lab #2 (Java 21, Virtual Threads)
 
-**Escuela Colombiana de Ingeniería – Arquitecturas de Software**  
+**Escuela Colombiana de Ingeniería – Arquitecturas de Software** 
+**Oscar andres sanchez porras**
 Laboratorio de programación concurrente: condiciones de carrera, sincronización y colecciones seguras.
 
 ---
@@ -63,6 +64,9 @@ co.eci.snake
    - El programa **espere ENTER** para **reanudar**.
 3. La sincronización debe usar **`synchronized`**, **`wait()`**, **`notify()` / `notifyAll()`** sobre el **mismo monitor** (sin _busy-waiting_).
 4. Entrega en el reporte de laboratorio **las observaciones y/o comentarios** explicando tu diseño de sincronización (qué lock, qué condición, cómo evitas _lost wakeups_).
+
+[📄 Ver documentación (PDF)](docs/observacion.pdf)
+
 
 > Objetivo didáctico: practicar suspensión/continuación **sin** espera activa y consolidar el modelo de monitores en Java.
 

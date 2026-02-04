@@ -82,6 +82,8 @@ co.eci.snake
   - **Colecciones** o estructuras **no seguras** en contexto concurrente.
   - Ocurrencias de **espera activa** (busy-wait) o de sincronización innecesaria.
 
+  [📄 Ver documentación (PDF)](doc/analisisConcurrencia.pdf)
+
 ### 2) Correcciones mínimas y regiones críticas
 
 - **Elimina** esperas activas reemplazándolas por **señales** / **estados** o mecanismos de la librería de concurrencia.

@@ -99,6 +99,7 @@ co.eci.snake
   - La **serpiente viva más larga**.
   - La **peor serpiente** (la que **primero murió**).
 - Considera que la suspensión **no es instantánea**; coordina para que el estado mostrado no quede “a medias”.
+[📄 Ver documentación (PDF)](doc/control.pdf)
 
 ### 4) Robustez bajo carga
 

@@ -10,6 +10,7 @@ import co.eci.snake.core.engine.GameClock;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -51,7 +52,9 @@ public final class SnakeApp extends JFrame {
     this.clock = new GameClock(60, () -> SwingUtilities.invokeLater(gamePanel::repaint));
 
     var exec = Executors.newVirtualThreadPerTaskExecutor();
-    snakes.forEach(s -> exec.submit(new SnakeRunner(s, board, board, gameState)));
+    snakes.forEach(s ->
+    exec.submit(new SnakeRunner(s, board, board, gameState, snakes)));
+
 
     actionButton.addActionListener((ActionEvent e) -> togglePause());
 
@@ -133,14 +136,36 @@ public final class SnakeApp extends JFrame {
 
   private void togglePause() {
     synchronized (board) {
-
       if ("Action".equals(actionButton.getText())) {
         actionButton.setText("Resume");
+        gameState.set(GameState.PAUSED);
         clock.pause();
+        showStats();
       } else {
         actionButton.setText("Action");
+        gameState.set(GameState.RUNNING);
+        board.notifyAll();
         clock.resume();
       }
+    }
+  }
+
+  private void showStats() {
+    synchronized (board) {
+      Snake longestAlive = snakes.stream()
+          .filter(Snake::isAlive)
+          .max(Comparator.comparing(s -> s.snapshot().size()))
+          .orElse(null);
+      Snake worst = snakes.stream()
+          .filter(s -> !s.isAlive())
+          .findFirst()
+          .orElse(null);
+      String msm = "Serpiente viva más larga: " +
+          (longestAlive != null ? longestAlive.snapshot().size() : "N/A") +
+          "\nPeor serpiente: " +
+          (worst != null ? worst.snapshot().size() : "N/A");
+      JOptionPane.showMessageDialog(this, msm, "Estadísticas", JOptionPane.INFORMATION_MESSAGE);
+
     }
   }
 

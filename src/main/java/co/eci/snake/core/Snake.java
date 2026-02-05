@@ -7,6 +7,7 @@ public final class Snake {
   private final Deque<Position> body = new ArrayDeque<>();
   private volatile Direction direction;
   private int maxLength = 5;
+  private volatile boolean alive = true;
 
   private Snake(Position start, Direction dir) {
     body.addFirst(start);
@@ -38,4 +39,6 @@ public final class Snake {
     while (body.size() > maxLength) body.removeLast();
   }
   public synchronized Position head() { return body.peekFirst(); }
+  public boolean isAlive() { return alive; }
+  public void die() { alive = false; }
 }

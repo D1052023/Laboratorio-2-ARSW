@@ -107,6 +107,7 @@ co.eci.snake
 - El juego **no debe romperse**: sin `ConcurrentModificationException`, sin lecturas inconsistentes, sin _deadlocks_.
 - Si habilitas **teleports** y **turbo**, verifica que las reglas no introduzcan carreras.
 
+[📄 Ver documentación (PDF)](doc/robustez.pdf)
 > Entregables detallados más abajo.
 
 ---
